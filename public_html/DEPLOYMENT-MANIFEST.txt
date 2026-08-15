@@ -1,0 +1,39 @@
+VARENZ SUPPLIES LTD — PREMIUM MULTI-PAGE WEBSITE PACKAGE
+Generated: 2026-08-15
+
+PACKAGE SCOPE
+- Existing PHP MVC application upgraded in place
+- Deep neumorphic and liquid-glass interface
+- Homepage retained as the primary single-page journey
+- Secondary pages available through the shared desktop mega menu and mobile drawer
+- Routes: /about, /products, /procurement, /quality-compliance, /partners, /resources, /faq and /contact
+- React Three Fiber, custom liquid-logo shader, ShaderGradient and Bloom effects
+- Capability-aware WebGL, reduced-motion and static fallbacks
+- Supplied company profile, capability deck and brochure resources
+- Conversion, accessibility, responsive and SEO improvements
+- Engineering, release and visual-QA documentation
+- Responsive product catalogue and product detail routes
+- AJAX product filtering with server-rendered fallback
+- Session-based procurement request list and secure Request Centre handoff
+- Mobile action-sheet, FAQ, footer and navigation recovery layer
+- Optimized partner logo assets
+
+EXCLUDED FROM THE FINAL ZIP
+- Git and editor metadata
+- React/Vite effect source and node_modules (compiled production bundle is included)
+- Browser preview utilities
+- Generated static PHP review renders
+- Baseline-only screenshots
+- Cache, session, log and private submission contents
+- Previous ZIP/TAR packages
+- Temporary and editor files
+
+IMPORTANT AFTER EXTRACTION
+1. Back up the current website before replacement.
+2. Extract the ZIP contents directly inside a staging document root such as public_html.
+3. Confirm .htaccess was extracted.
+4. Ensure storage/cache, storage/sessions, storage/logs and storage/private are writable by PHP.
+5. Review config/app.php for the live environment and base URL.
+6. Test the homepage, mega menu, all secondary routes, product catalogue/detail routes, search, downloads, mobile drawer and one real submission over HTTPS.
+7. Configure a verified email or CRM provider if immediate staff notification is required.
+8. Run `php -l` across PHP files on the production PHP version and verify WebGL and reduced-motion fallbacks on representative devices.

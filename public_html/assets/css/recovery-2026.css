@@ -1,0 +1,200 @@
+/* Varenz 2026 recovery layer — intentionally last in the global cascade. */
+
+html,
+body {
+  overflow-x:clip;
+}
+
+.product-spotlight {
+  display:grid;
+  grid-template-columns:minmax(0,.9fr) minmax(360px,1.1fr);
+  align-items:center;
+  gap:clamp(32px,6vw,90px);
+}
+
+.product-spotlight__copy {
+  max-width:650px;
+}
+
+.product-spotlight__copy h2 {
+  margin:12px 0 16px;
+  color:var(--navy,#113f90);
+  font-size:clamp(2rem,4.8vw,4.6rem);
+  line-height:.98;
+  letter-spacing:-.045em;
+}
+
+.product-spotlight__copy p {
+  color:var(--muted,#5d6b82);
+  font-size:clamp(1rem,1.4vw,1.18rem);
+}
+
+.product-spotlight__tags,
+.product-spotlight__actions {
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+
+.product-spotlight__tags { margin:22px 0; }
+.product-spotlight__tags span {
+  padding:8px 12px;
+  border:1px solid rgba(15,153,179,.24);
+  border-radius:999px;
+  color:#0c7189;
+  background:#effbfc;
+  font-size:.8rem;
+  font-weight:800;
+}
+
+.product-spotlight__media {
+  min-height:480px;
+  overflow:hidden;
+  border-radius:36px;
+  background:linear-gradient(145deg,#eff9fb,#dbeaf4);
+  box-shadow:0 28px 74px rgba(13,43,87,.16);
+}
+
+.product-spotlight__media img {
+  width:100%;
+  height:100%;
+  min-height:480px;
+  object-fit:cover;
+}
+
+.vsl-action-hub__head {
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:18px;
+  padding:3px 3px 8px;
+}
+
+.vsl-action-hub__head strong { display:block; color:#123c82; }
+.vsl-action-hub__head button {
+  min-height:36px;
+  padding:0 12px;
+  border:1px solid rgba(17,63,144,.18);
+  border-radius:999px;
+  color:#123c82;
+  background:#f3f8fd;
+  cursor:pointer;
+  font:inherit;
+  font-size:.76rem;
+  font-weight:800;
+}
+
+.vsl-action-hub__scrim {
+  position:fixed;
+  z-index:-1;
+  inset:0;
+  border:0;
+  background:rgba(5,22,53,.44);
+  backdrop-filter:blur(3px);
+}
+
+.vsl-action-hub.is-near-footer:not(.is-open) .vsl-action-hub__toggle {
+  transform:translateY(8px) scale(.92);
+  opacity:.86;
+}
+
+.faq-body {
+  display:grid;
+  grid-template-rows:0fr;
+  max-height:none !important;
+  opacity:1;
+  transition:grid-template-rows .35s var(--ease,ease),padding .35s var(--ease,ease);
+}
+
+.faq-body > * { min-height:0; overflow:hidden; }
+.faq-item.open .faq-body,
+.faq-item.is-open .faq-body {
+  grid-template-rows:1fr;
+  max-height:none !important;
+}
+
+.faq-item:not(.open):not(.is-open) .faq-plus {
+  animation:vsl-faq-nudge 4.8s ease-in-out infinite;
+}
+
+@keyframes vsl-faq-nudge {
+  0%,88%,100% { transform:scale(1); }
+  92% { transform:scale(1.12); }
+  96% { transform:scale(.96); }
+}
+
+.vsl-footer {
+  width:100%;
+  margin:0;
+  border-radius:0;
+  box-shadow:none;
+}
+
+.vsl-footer-logo {
+  width:min(270px,100%);
+  height:auto;
+  padding:0;
+  display:block;
+  border-radius:0;
+  background:transparent;
+}
+
+.vsl-footer-logo .vsl-kit-005__border,
+.vsl-footer-logo .vsl-kit-005__trail,
+.vsl-footer-logo .vsl-kit-005__mark,
+.vsl-footer-logo .vsl-kit-005__caption { display:none !important; }
+
+.vsl-footer-logo .vsl-kit-005__logo-stage,
+.vsl-footer-logo .vsl-kit-005__wordmark {
+  position:static;
+  display:block;
+  width:100%;
+  height:auto;
+  transform:none;
+  opacity:1;
+  filter:brightness(0) invert(1);
+}
+
+@media (max-width:900px) {
+  .product-spotlight { grid-template-columns:1fr; }
+  .product-spotlight__media,
+  .product-spotlight__media img { min-height:340px; }
+  .vsl-footer-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .vsl-footer-brand { grid-column:1 / -1; }
+}
+
+@media (max-width:640px) {
+  .product-spotlight { gap:26px; }
+  .product-spotlight__media,
+  .product-spotlight__media img { min-height:280px; border-radius:24px; }
+  .product-spotlight__actions .btn { width:100%; }
+
+  .vsl-action-hub { right:10px; left:10px; align-items:stretch; }
+  .vsl-action-hub__panel {
+    position:fixed;
+    z-index:2;
+    right:10px;
+    bottom:78px;
+    left:10px;
+    width:auto;
+    max-height:min(70vh,580px);
+    overflow:auto;
+    border-radius:24px;
+  }
+  .vsl-action-hub__toggle { align-self:flex-end; }
+
+  .vsl-footer { padding:44px 18px max(28px,env(safe-area-inset-bottom)); }
+  .vsl-footer-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:30px 18px; }
+  .vsl-footer-brand { grid-column:1 / -1; }
+  .vsl-footer-logo { width:min(230px,80vw); }
+  .vsl-footer-bottom { margin-top:36px; }
+
+  .hero-pause,
+  [data-hero-pause] { display:none !important; }
+
+  .partner-carousel-viewport { touch-action:pan-y pinch-zoom; }
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .faq-plus { animation:none !important; }
+}
