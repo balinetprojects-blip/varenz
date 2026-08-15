@@ -1,0 +1,315 @@
+# ============================================================================
+# VARENZ SUPPLIES LTD
+# Root Apache / LiteSpeed Configuration
+# ============================================================================
+#
+# Location:
+#
+#   /.htaccess
+#
+# Same directory as:
+#
+#   index.php
+#   app/
+#   assets/
+#   config/
+#   data/
+#   storage/
+#
+# Objectives:
+#
+# - Serve real assets directly.
+# - Route application URLs through index.php.
+# - Preserve /team/{slug}.
+# - Preserve all /api/... routes.
+# - Protect private application directories.
+# - Prevent executable files inside /assets.
+# - Protect sensitive project/configuration files.
+# - Preserve .well-known for SSL/domain validation.
+# - Add conservative security headers.
+# - Enable safe static-asset caching/compression where supported.
+#
+# ============================================================================
+
+
+# ----------------------------------------------------------------------------
+# Default application entrypoint
+# ----------------------------------------------------------------------------
+
+DirectoryIndex index.php
+
+
+# ----------------------------------------------------------------------------
+# Disable content negotiation where available
+#
+# Prevents Apache MultiViews from interpreting routes such as:
+#
+# /team/person
+# /api/search
+#
+# as similarly named physical files.
+# ----------------------------------------------------------------------------
+
+<IfModule mod_negotiation.c>
+    Options -MultiViews
+</IfModule>
+
+
+# ============================================================================
+# URL REWRITING
+# ============================================================================
+
+<IfModule mod_rewrite.c>
+
+    RewriteEngine On
+
+
+    # ------------------------------------------------------------------------
+    # Preserve .well-known
+    #
+    # Required by SSL certificate/domain verification systems.
+    # ------------------------------------------------------------------------
+
+    RewriteRule ^\.well-known(?:/|$) - [L]
+
+
+    # ------------------------------------------------------------------------
+    # Block hidden files
+    #
+    # Examples:
+    #
+    # .env
+    # .git/
+    # .svn/
+    #
+    # .well-known is already exempted above.
+    # ------------------------------------------------------------------------
+
+    RewriteRule (^|/)\.(?!well-known(?:/|$)) - [F,L,NC]
+
+
+    # ------------------------------------------------------------------------
+    # Protect private application directories
+    #
+    # PHP may require these files internally, but visitors should never
+    # retrieve them directly over HTTP.
+    # ------------------------------------------------------------------------
+
+    RewriteRule ^(?:app|config|data|storage)(?:/|$) - [F,L,NC]
+
+
+    # ------------------------------------------------------------------------
+    # Never execute or expose executable scripts from /assets
+    #
+    # The assets directory is public media only.
+    # ------------------------------------------------------------------------
+
+    RewriteRule ^assets/.*\.(?:php|php3|php4|php5|php7|php8|phtml|phar|cgi|pl|py|sh|bash)$ - [F,L,NC]
+
+
+    # ------------------------------------------------------------------------
+    # Protect common sensitive project files
+    # ------------------------------------------------------------------------
+
+    RewriteRule ^(?:composer\.(?:json|lock)|package(?:-lock)?\.json|phpunit\.xml(?:\.dist)?|webpack\.config\.js|vite\.config\.js)$ - [F,L,NC]
+
+
+    # ------------------------------------------------------------------------
+    # Protect backups, databases and logs
+    # ------------------------------------------------------------------------
+
+    RewriteRule \.(?:sql|sqlite|sqlite3|db|log|bak|backup|old|orig|swp|dist)$ - [F,L,NC]
+
+
+    # ========================================================================
+    # CRITICAL ASSET RULE
+    # ========================================================================
+    #
+    # If a real file or directory exists, serve it DIRECTLY.
+    #
+    # Examples:
+    #
+    # /assets/css/app.css
+    # /assets/css/header-island.css
+    # /assets/js/app.js
+    # /assets/js/header-island.js
+    # /assets/images/hero/final/scene-01-overview.webp
+    # /assets/images/team/...
+    #
+    # These requests MUST NOT be routed through index.php.
+    #
+    # ========================================================================
+
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+
+    # ========================================================================
+    # FRONT CONTROLLER
+    # ========================================================================
+    #
+    # Everything that is NOT a real file/directory is handled by the
+    # existing PHP Router.
+    #
+    # Examples:
+    #
+    # /
+    # /team/kisseka-abdallah
+    # /api/search
+    # /api/team
+    # /api/categories/imaging
+    # /api/procurement/quotation
+    # /api/submissions
+    #
+    # ========================================================================
+
+    RewriteRule ^ index.php [QSA,L]
+
+</IfModule>
+
+
+# ============================================================================
+# SECURITY HEADERS
+# ============================================================================
+#
+# These are deliberately conservative.
+#
+# We are NOT introducing a strict Content-Security-Policy yet because we
+# first need to finish auditing the site's fonts, inline bootstrap data,
+# images and JavaScript dependencies.
+# ============================================================================
+
+<IfModule mod_headers.c>
+
+    Header always unset X-Powered-By
+
+    Header always set X-Content-Type-Options "nosniff"
+
+    Header always set X-Frame-Options "SAMEORIGIN"
+
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+    Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+
+</IfModule>
+
+
+# ============================================================================
+# STATIC ASSET COMPRESSION
+# ============================================================================
+
+<IfModule mod_deflate.c>
+
+    AddOutputFilterByType DEFLATE text/plain
+
+    AddOutputFilterByType DEFLATE text/html
+
+    AddOutputFilterByType DEFLATE text/css
+
+    AddOutputFilterByType DEFLATE text/javascript
+
+    AddOutputFilterByType DEFLATE application/javascript
+
+    AddOutputFilterByType DEFLATE application/json
+
+    AddOutputFilterByType DEFLATE application/xml
+
+    AddOutputFilterByType DEFLATE image/svg+xml
+
+</IfModule>
+
+
+# ============================================================================
+# STATIC ASSET EXPIRATION
+# ============================================================================
+
+<IfModule mod_expires.c>
+
+    ExpiresActive On
+
+
+    # ------------------------------------------------------------------------
+    # Images
+    # ------------------------------------------------------------------------
+
+    ExpiresByType image/jpeg "access plus 30 days"
+
+    ExpiresByType image/png "access plus 30 days"
+
+    ExpiresByType image/gif "access plus 30 days"
+
+    ExpiresByType image/webp "access plus 30 days"
+
+    ExpiresByType image/avif "access plus 30 days"
+
+    ExpiresByType image/svg+xml "access plus 30 days"
+
+
+    # ------------------------------------------------------------------------
+    # Fonts
+    # ------------------------------------------------------------------------
+
+    ExpiresByType font/woff "access plus 30 days"
+
+    ExpiresByType font/woff2 "access plus 30 days"
+
+    ExpiresByType application/font-woff "access plus 30 days"
+
+
+    # ------------------------------------------------------------------------
+    # CSS / JavaScript
+    #
+    # Keep shorter than images because we are actively upgrading the site.
+    # Existing asset version query strings will also help cache invalidation.
+    # ------------------------------------------------------------------------
+
+    ExpiresByType text/css "access plus 7 days"
+
+    ExpiresByType text/javascript "access plus 7 days"
+
+    ExpiresByType application/javascript "access plus 7 days"
+
+</IfModule>
+
+
+# ============================================================================
+# CACHE CONTROL
+# ============================================================================
+
+<IfModule mod_headers.c>
+
+    <FilesMatch "\.(?:css|js)$">
+        Header set Cache-Control "public, max-age=604800"
+    </FilesMatch>
+
+    <FilesMatch "\.(?:jpg|jpeg|png|gif|webp|avif|svg|woff|woff2)$">
+        Header set Cache-Control "public, max-age=2592000"
+    </FilesMatch>
+
+</IfModule>
+
+
+# ============================================================================
+# MIME FALLBACKS
+# ============================================================================
+#
+# Most hosts already configure these correctly. These declarations only
+# provide additional protection for modern asset types where supported.
+# ============================================================================
+
+<IfModule mod_mime.c>
+
+    AddType image/webp .webp
+
+    AddType image/avif .avif
+
+    AddType image/svg+xml .svg
+
+    AddType font/woff .woff
+
+    AddType font/woff2 .woff2
+
+    AddType application/javascript .js
+
+</IfModule>

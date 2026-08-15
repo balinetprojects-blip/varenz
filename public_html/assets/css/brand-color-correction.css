@@ -1,0 +1,973 @@
+/*
+==============================================================================
+VARENZ SUPPLIES LTD
+BRAND COLOR GOVERNANCE — CLEAN PRODUCTION LAYER
+==============================================================================
+
+PURPOSE
+-------
+
+This stylesheet is deliberately a BRAND GOVERNANCE layer only.
+
+It DOES NOT design:
+- the header
+- header island
+- navigation buttons
+- mega menu
+- mobile drawer
+- card geometry
+- component layouts
+- general buttons
+- general inputs
+- product cards
+- team cards
+- challenge cards
+- procurement cards
+- organisation cards
+
+Those components belong to their own authoritative stylesheets.
+
+This file may correct:
+- brand colour consistency
+- accessible text contrast
+- controlled blue/teal accents
+- light/dark section colour relationships
+- status/accent colours
+- print colour safety
+
+IMPORTANT
+---------
+
+NO selectors for:
+
+.site-header
+.header-stage
+.header-island
+.utility-bar
+.nav-bubble
+.nav-bubbles
+.action-bubble
+.support-bubble
+.mega-panel
+.mega-card
+.mobile-drawer
+.drawer-panel
+
+are permitted in this file.
+
+That protects the restored original Varenz header from later cascade overrides.
+
+Visual rule:
+
+    70% white / ice / very light medical blue
+    20% soft clinical blue
+    10% navy / teal emphasis
+
+Dark navy is an accent and high-contrast anchor.
+It is NOT the default surface colour.
+
+==============================================================================
+*/
+
+
+/* ==========================================================================
+   01. BRAND TOKENS
+   ========================================================================== */
+
+:root{
+  --vsl-brand-navy:#102A5C;
+  --vsl-brand-navy-deep:#081A3A;
+
+  --vsl-brand-blue:#31459A;
+  --vsl-brand-blue-mid:#4C70B6;
+  --vsl-brand-blue-soft:#8EAFE0;
+  --vsl-brand-blue-pale:#DDEBFA;
+
+  --vsl-brand-teal:#1DB9C2;
+  --vsl-brand-teal-mid:#59D0D6;
+  --vsl-brand-teal-soft:#BCECEF;
+
+  --vsl-clinical-white:#FFFFFF;
+  --vsl-clinical-ice:#F8FCFF;
+  --vsl-clinical-blue:#EFF7FD;
+  --vsl-clinical-blue-2:#E6F2FA;
+
+  --vsl-brand-ink:#172B4D;
+  --vsl-brand-copy:#5F7391;
+  --vsl-brand-muted:#73839C;
+
+  --vsl-brand-line:rgba(45,79,127,.13);
+  --vsl-brand-line-soft:rgba(45,79,127,.08);
+
+  --vsl-brand-focus:rgba(29,185,194,.20);
+
+  --vsl-brand-gradient:
+    linear-gradient(
+      115deg,
+      #31459A 0%,
+      #5477B4 50%,
+      #1DB9C2 100%
+    );
+
+  --vsl-brand-gradient-soft:
+    linear-gradient(
+      135deg,
+      rgba(221,235,250,.75),
+      rgba(239,248,253,.72) 52%,
+      rgba(214,244,246,.62)
+    );
+
+  --vsl-clinical-section:
+    linear-gradient(
+      180deg,
+      #FFFFFF 0%,
+      #F8FCFF 58%,
+      #F0F7FC 100%
+    );
+
+  --vsl-clinical-section-soft:
+    radial-gradient(
+      circle at 9% 12%,
+      rgba(29,185,194,.075),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 91% 8%,
+      rgba(49,69,154,.055),
+      transparent 27%
+    ),
+    linear-gradient(
+      180deg,
+      #FBFDFF,
+      #F2F8FC
+    );
+}
+
+
+/* ==========================================================================
+   02. DOCUMENT COLOUR BASELINE
+   ========================================================================== */
+
+body{
+  color:var(--vsl-brand-ink);
+}
+
+::selection{
+  color:var(--vsl-brand-navy-deep);
+
+  background:
+    rgba(29,185,194,.20);
+}
+
+
+/* ==========================================================================
+   03. LIGHT SECTION GOVERNANCE
+   ========================================================================== */
+
+.section-light{
+  color:
+    var(--vsl-brand-ink);
+
+  background:
+    var(--vsl-clinical-white);
+}
+
+.section-soft{
+  color:
+    var(--vsl-brand-ink);
+
+  background:
+    var(--vsl-clinical-section-soft);
+}
+
+
+/*
+ * Standard content sections should stay visually clinical and bright.
+ *
+ * No border radius, card geometry or component shadows are imposed here.
+ */
+.section:not(.section-dark){
+  color:
+    var(--vsl-brand-ink);
+}
+
+
+/* ==========================================================================
+   04. CONTROLLED DARK SECTION GOVERNANCE
+   ========================================================================== */
+
+/*
+ * Dark sections remain available as intentional visual anchors.
+ *
+ * They should not spread dark blue into unrelated components.
+ */
+.section-dark{
+  color:
+    #F5FAFF;
+
+  background:
+    radial-gradient(
+      circle at 88% 4%,
+      rgba(29,185,194,.12),
+      transparent 27%
+    ),
+    linear-gradient(
+      135deg,
+      #0B2047 0%,
+      #13345E 56%,
+      #0C5667 100%
+    );
+}
+
+.section-dark :where(
+  h1,
+  h2,
+  h3,
+  h4,
+  strong
+){
+  color:
+    #FFFFFF;
+}
+
+.section-dark :where(
+  p,
+  li,
+  .muted
+){
+  color:
+    rgba(231,241,252,.80);
+}
+
+
+/* ==========================================================================
+   05. SECTION KICKERS / EYEBROWS
+   ========================================================================== */
+
+/*
+ * Accent labels use teal/navy sparingly.
+ *
+ * Geometry remains controlled by app.css.
+ */
+:where(
+  .section-kicker,
+  .section-eyebrow,
+  .eyebrow,
+  .editorial-kicker,
+  .theatre-kicker,
+  .hero-eyebrow,
+  .challenge-kicker,
+  .category-kicker,
+  .step-kicker,
+  .org-kicker,
+  .team-kicker,
+  .faq-kicker,
+  .cta-kicker
+){
+  color:
+    #0D8799;
+}
+
+.section-dark :where(
+  .section-kicker,
+  .section-eyebrow,
+  .eyebrow,
+  .editorial-kicker,
+  .theatre-kicker,
+  .hero-eyebrow,
+  .challenge-kicker,
+  .category-kicker,
+  .step-kicker,
+  .org-kicker,
+  .team-kicker,
+  .faq-kicker,
+  .cta-kicker
+){
+  color:
+    #8EE9EC;
+}
+
+
+/* ==========================================================================
+   06. HEADING COLOUR GOVERNANCE
+   ========================================================================== */
+
+:where(
+  .section-head,
+  .editorial-head,
+  .theatre-head
+) h2{
+  color:
+    var(--vsl-brand-ink);
+}
+
+:where(
+  .section-head,
+  .editorial-head,
+  .theatre-head
+) p{
+  color:
+    var(--vsl-brand-copy);
+}
+
+.section-dark :where(
+  .section-head,
+  .editorial-head,
+  .theatre-head
+) h2{
+  color:
+    #FFFFFF;
+}
+
+.section-dark :where(
+  .section-head,
+  .editorial-head,
+  .theatre-head
+) p{
+  color:
+    rgba(231,241,252,.80);
+}
+
+
+/* ==========================================================================
+   07. TEXT ACCENTS
+   ========================================================================== */
+
+.brand-text,
+.text-brand,
+.text-blue{
+  color:
+    var(--vsl-brand-blue);
+}
+
+.text-teal{
+  color:
+    #0D8799;
+}
+
+.text-muted,
+.muted{
+  color:
+    var(--vsl-brand-muted);
+}
+
+
+/*
+ * Gradient text is allowed only when a component explicitly requests it.
+ *
+ * Never apply gradient text to all headings.
+ */
+.gradient-text,
+.brand-gradient-text{
+  background:
+    var(--vsl-brand-gradient);
+
+  -webkit-background-clip:
+    text;
+
+  background-clip:
+    text;
+
+  color:
+    transparent;
+}
+
+
+/* ==========================================================================
+   08. PRIMARY ACTION COLOUR
+   ========================================================================== */
+
+/*
+ * Only explicit primary-action classes receive brand fill.
+ *
+ * This intentionally does NOT target:
+ *
+ * button
+ * [role="button"]
+ * .action-bubble
+ * navigation controls
+ */
+.btn-primary,
+.primary-cta,
+.cta-primary{
+  color:
+    #FFFFFF;
+
+  background:
+    var(--vsl-brand-gradient);
+}
+
+.btn-primary:hover,
+.primary-cta:hover,
+.cta-primary:hover{
+  filter:
+    saturate(1.04)
+    brightness(1.02);
+}
+
+
+/* ==========================================================================
+   09. SECONDARY ACTION COLOUR
+   ========================================================================== */
+
+.btn-secondary,
+.secondary-cta,
+.cta-secondary{
+  color:
+    var(--vsl-brand-navy);
+
+  background:
+    rgba(255,255,255,.84);
+
+  border-color:
+    rgba(49,69,154,.14);
+}
+
+.btn-secondary:hover,
+.secondary-cta:hover,
+.cta-secondary:hover{
+  color:
+    #0D7188;
+
+  border-color:
+    rgba(29,185,194,.26);
+}
+
+
+/* ==========================================================================
+   10. ACCESSIBLE FOCUS COLOUR
+   ========================================================================== */
+
+/*
+ * Do not replace component shadows.
+ *
+ * Only add a brand-consistent focus outline.
+ */
+:where(
+  main,
+  .site-main,
+  #mainContent
+) :where(
+  a,
+  button,
+  input,
+  select,
+  textarea
+):focus-visible{
+  outline:
+    3px solid rgba(29,185,194,.62);
+
+  outline-offset:
+    3px;
+}
+
+
+/* ==========================================================================
+   11. FORM BRAND COLOUR — COLOUR ONLY
+   ========================================================================== */
+
+:where(
+  .field,
+  .form-field
+) label{
+  color:
+    var(--vsl-brand-ink);
+}
+
+:where(
+  .field,
+  .form-field
+) small{
+  color:
+    var(--vsl-brand-muted);
+}
+
+:where(
+  .field,
+  .form-field
+) :where(
+  input,
+  select,
+  textarea
+):focus{
+  border-color:
+    rgba(29,185,194,.38);
+}
+
+
+/* ==========================================================================
+   12. STATUS COLOURS
+   ========================================================================== */
+
+.status-success,
+.success{
+  color:
+    #11785E;
+}
+
+.status-warning,
+.warning{
+  color:
+    #9A6512;
+}
+
+.status-error,
+.error{
+  color:
+    #B44343;
+}
+
+.status-info,
+.info{
+  color:
+    #315D98;
+}
+
+
+/* ==========================================================================
+   13. PRODUCT METADATA ACCENTS
+   ========================================================================== */
+
+/*
+ * Keep original product card geometry and visual hierarchy.
+ */
+.product-card :where(
+  .sku,
+  .product-code,
+  .product-kicker
+){
+  color:
+    #137F92;
+}
+
+.product-card :where(
+  .meta,
+  .product-meta
+){
+  color:
+    var(--vsl-brand-muted);
+}
+
+
+/* ==========================================================================
+   14. CHALLENGE SECTION — COLOUR ONLY
+   ========================================================================== */
+
+/*
+ * IMPORTANT:
+ *
+ * No gradient backgrounds.
+ * No capsule shapes.
+ * No forced border radii.
+ *
+ * app.css owns the actual challenge-card design.
+ */
+.challenge-btn :where(
+  strong,
+  h3,
+  h4
+){
+  color:
+    var(--vsl-brand-ink);
+}
+
+.challenge-btn :where(
+  p,
+  span
+){
+  color:
+    var(--vsl-brand-copy);
+}
+
+.challenge-btn.active :where(
+  strong,
+  h3,
+  h4
+){
+  color:
+    var(--vsl-brand-navy);
+}
+
+.challenge-btn.active{
+  border-color:
+    rgba(29,185,194,.28);
+}
+
+
+/* ==========================================================================
+   15. PROCUREMENT — COLOUR ONLY
+   ========================================================================== */
+
+.step-chip :where(
+  strong,
+  h3,
+  h4
+){
+  color:
+    var(--vsl-brand-ink);
+}
+
+.step-chip :where(
+  p,
+  span
+){
+  color:
+    var(--vsl-brand-copy);
+}
+
+.step-chip.active{
+  border-color:
+    rgba(29,185,194,.30);
+}
+
+.step-chip.active :where(
+  strong,
+  h3,
+  h4
+){
+  color:
+    var(--vsl-brand-navy);
+}
+
+
+/* ==========================================================================
+   16. ORGANISATIONS — COLOUR ONLY
+   ========================================================================== */
+
+.org-pill :where(
+  strong,
+  h3,
+  h4
+){
+  color:
+    var(--vsl-brand-ink);
+}
+
+.org-pill :where(
+  p,
+  span
+){
+  color:
+    var(--vsl-brand-copy);
+}
+
+.org-pill.active{
+  border-color:
+    rgba(29,185,194,.30);
+}
+
+
+/* ==========================================================================
+   17. WHY VARENZ / VALUE SECTION
+   ========================================================================== */
+
+.center-orb{
+  color:
+    #FFFFFF;
+}
+
+.orbit-node :where(
+  strong,
+  h3,
+  h4
+){
+  color:
+    var(--vsl-brand-ink);
+}
+
+.orbit-node :where(
+  p,
+  span
+){
+  color:
+    var(--vsl-brand-copy);
+}
+
+.orbit-node.active{
+  border-color:
+    rgba(29,185,194,.30);
+}
+
+
+/* ==========================================================================
+   18. TEAM SECTION — PRESERVE ORIGINAL CARD DESIGN
+   ========================================================================== */
+
+/*
+ * This file deliberately does NOT set:
+ *
+ * .team-card background
+ * .team-card-body background
+ * .team-card-media background
+ * border-radius
+ * box-shadow
+ *
+ * The user's approved team-card composition belongs to app.css.
+ */
+.team-card :where(
+  .role,
+  .team-role,
+  .team-kicker
+){
+  color:
+    #137F92;
+}
+
+.team-card :where(
+  .team-meta,
+  .team-department
+){
+  color:
+    var(--vsl-brand-muted);
+}
+
+
+/* ==========================================================================
+   19. FAQ — COLOUR ONLY
+   ========================================================================== */
+
+.faq-item :where(
+  .faq-question,
+  .faq-head
+){
+  color:
+    var(--vsl-brand-ink);
+}
+
+.faq-item :where(
+  .faq-body,
+  .faq-answer
+){
+  color:
+    var(--vsl-brand-copy);
+}
+
+.faq-item.open,
+.faq-item.is-open{
+  border-color:
+    rgba(29,185,194,.24);
+}
+
+
+/* ==========================================================================
+   20. DIVIDERS / RULES
+   ========================================================================== */
+
+.section-divider,
+.divider{
+  border-color:
+    var(--vsl-brand-line);
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(49,69,154,.12) 30%,
+      rgba(29,185,194,.18) 65%,
+      transparent
+    );
+}
+
+
+/* ==========================================================================
+   21. DARK THEME BRAND GOVERNANCE
+   ========================================================================== */
+
+html[data-theme="dark"]{
+  --vsl-brand-ink:#EEF5FF;
+  --vsl-brand-copy:#B5C3D8;
+  --vsl-brand-muted:#93A5BF;
+  --vsl-brand-line:rgba(255,255,255,.10);
+}
+
+html[data-theme="dark"] .section-light,
+html[data-theme="dark"] .section-soft{
+  color:
+    #EEF5FF;
+
+  background:
+    linear-gradient(
+      180deg,
+      #0D2346,
+      #0A1D3C
+    );
+}
+
+html[data-theme="dark"] :where(
+  .section-head,
+  .editorial-head,
+  .theatre-head
+) h2{
+  color:
+    #F4F8FF;
+}
+
+html[data-theme="dark"] :where(
+  .section-head,
+  .editorial-head,
+  .theatre-head
+) p{
+  color:
+    #B5C3D8;
+}
+
+
+/* ==========================================================================
+   22. REDUCED TRANSPARENCY
+   ========================================================================== */
+
+@media (prefers-reduced-transparency:reduce){
+
+  .section-soft{
+    background:
+      #F5FAFE;
+  }
+
+  html[data-theme="dark"] .section-soft{
+    background:
+      #0D2346;
+  }
+}
+
+
+/* ==========================================================================
+   23. HIGH CONTRAST
+   ========================================================================== */
+
+@media (prefers-contrast:more){
+
+  :root{
+    --vsl-brand-copy:#374A65;
+    --vsl-brand-muted:#485A72;
+    --vsl-brand-line:rgba(25,54,91,.30);
+  }
+
+  .section-dark :where(
+    p,
+    li,
+    .muted
+  ){
+    color:
+      #F0F6FF;
+  }
+
+  :where(
+    main,
+    .site-main,
+    #mainContent
+  ) :where(
+    a,
+    button,
+    input,
+    select,
+    textarea
+  ):focus-visible{
+    outline-width:
+      4px;
+  }
+}
+
+
+/* ==========================================================================
+   24. REDUCED MOTION
+   ========================================================================== */
+
+/*
+ * Motion architecture remains owned by app.css.
+ *
+ * This layer does not introduce animations.
+ */
+@media (prefers-reduced-motion:reduce){
+
+  .gradient-text,
+  .brand-gradient-text{
+    background:
+      none;
+
+    color:
+      var(--vsl-brand-blue);
+  }
+}
+
+
+/* ==========================================================================
+   25. PRINT
+   ========================================================================== */
+
+@media print{
+
+  .section-light,
+  .section-soft,
+  .section-dark{
+    color:
+      #000 !important;
+
+    background:
+      #FFF !important;
+  }
+
+  .section-dark :where(
+    h1,
+    h2,
+    h3,
+    h4,
+    p,
+    li,
+    strong,
+    .muted
+  ){
+    color:
+      #000 !important;
+  }
+
+  .gradient-text,
+  .brand-gradient-text{
+    background:
+      none !important;
+
+    color:
+      #000 !important;
+  }
+}
+
+
+/* ==========================================================================
+   26. PROTECTED HEADER CONTRACT
+   ========================================================================== */
+
+/*
+ * INTENTIONALLY EMPTY.
+ *
+ * Do NOT add header styling below this point.
+ *
+ * The following components are owned exclusively by:
+ *
+ *     assets/css/header-island.css
+ *
+ * Protected selectors include:
+ *
+ *     .site-header
+ *     .utility-bar
+ *     .utility-inner
+ *     .utility-bubble
+ *     .header-stage
+ *     .header-island
+ *     .brand-link
+ *     .brand-logo
+ *     .desktop-navigation
+ *     .nav-bubbles
+ *     .nav-bubble
+ *     .header-actions
+ *     .action-bubble
+ *     .search-bubble
+ *     .theme-bubble
+ *     .support-bubble
+ *     .mega-panel
+ *     .mega-card
+ *     .mega-scrim
+ *     .mobile-drawer
+ *     .drawer-panel
+ *
+ * This separation prevents a late-loaded colour stylesheet from repainting
+ * or structurally redesigning the approved header.
+ */
