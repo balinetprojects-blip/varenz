@@ -7,8 +7,8 @@ Date: 2026-08-15
 | Static regression suite | Pass | `node --test tests/validate-static.mjs`: 8/8 tests passed. |
 | PHP route rendering | Pass | PHP 8.4 WebAssembly rendered `/`, `/about`, `/products`, `/procurement`, `/quality-compliance`, `/partners`, `/resources`, `/faq` and `/contact`. |
 | Rendered asset resolution | Pass | All local stylesheet, script, image and download references in the nine rendered routes resolve. |
-| JavaScript syntax | Pass | `pages.js`, `header-island.js`, `products.js` and the compiled `varenz-effects.js` pass `node --check`. |
-| React effects production build | Pass | Vite built the React Three Fiber, shader-gradient and liquid-logo bundle from 669 modules. |
+| JavaScript syntax | Pass | `app.js`, `pages.js` and `recovery-2026.js` pass `node --check`. |
+| React effects production build | Pass | Vite built the React Three Fiber, ShaderGradient, Embla, Fuse, Floating UI and GSAP bundle from 680 modules. |
 | Mega-menu destinations | Pass | Every primary and secondary destination points to an implemented route or a valid homepage section. |
 | Progressive enhancement | Pass | Static content remains visible without JavaScript or WebGL; effects observe reduced-motion and low-capability fallbacks. |
 | Existing business flow | Pass | Product filtering, product detail routes, session request list and secure Request Centre handoff remain registered and covered. |

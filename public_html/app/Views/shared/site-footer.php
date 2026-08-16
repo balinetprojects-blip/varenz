@@ -4,7 +4,7 @@ declare(strict_types=1);
 $contactData = config('contact', []);
 $contactData = is_array($contactData) ? $contactData : [];
 ?>
-<footer class="vsl-page-footer">
+<footer class="vsl-page-footer" id="location">
     <div class="vsl-page-footer__brand">
         <img src="<?= e(asset('images/logo/varenz-word-logo-clean.png')) ?>" alt="Varenz Supplies Ltd" width="320" height="96">
         <p>Specialised medical supply support with clear documentation and responsive procurement coordination.</p>
@@ -23,6 +23,7 @@ $contactData = is_array($contactData) ? $contactData : [];
         <a href="<?= e(url('/resources')) ?>">Resources</a>
         <a href="<?= e(url('/faq')) ?>">FAQs</a>
         <a href="<?= e(url('/contact')) ?>">Contact</a>
+        <a href="<?= e(url('/')) ?>#cta">Request a Quote</a>
     </div>
     <div>
         <h2>Contact</h2>
