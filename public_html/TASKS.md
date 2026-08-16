@@ -23,7 +23,7 @@ Use one numbered task per implementation session. Status keys: `[ ]` todo, `[-]`
 - [x] 3.1 Fill `design-tokens.json`.
 - [x] 3.2 Add brochure-style clinical CSS upgrade layer.
 - [x] 3.3 Replace developer-facing section titles.
-- [x] 3.4 Run browser visual QA on desktop and mobile.
+- [!] 3.4 Re-run browser visual QA on desktop and mobile staging; local capture is blocked in this workspace.
 - [x] 3.5 Apply the five catalogued VSL UI kit components with keyboard, touch and reduced-motion parity.
 - [x] 3.6 Add the approved Poppins brand typeface and hybrid neumorphic/glass surfaces.
 
@@ -57,4 +57,15 @@ Use one numbered task per implementation session. Status keys: `[ ]` todo, `[-]`
 - [x] 7.5 Repair mobile support overlay, FAQ and full-width footer behavior.
 - [x] 7.6 Optimize partner assets and update public navigation.
 - [x] 7.7 Add and pass repeatable Node-based static validation.
-- [!] 7.8 Run PHP runtime smoke tests on staging; no PHP binary is available in this repair workspace.
+- [x] 7.8 Run PHP-WASM route smoke tests for all nine public routes.
+
+## 8. August 2026 Complete Recovery
+
+- [x] 8.1 Render and inspect all nine PHP routes with PHP-WASM.
+- [x] 8.2 Remove the overlapping legacy carousel controller and assign carousel ownership to Embla.
+- [x] 8.3 Add Fuse.js catalogue fallback, Floating UI support positioning and GSAP reduced-motion reveals.
+- [x] 8.4 Convert the homepage request form to a request-type-first progressive flow.
+- [x] 8.5 Stabilize shared headers, mobile drawer scrim and full-width route footers.
+- [x] 8.6 Pass static integrity and JavaScript syntax validation.
+- [!] 8.7 Capture desktop/mobile screenshot regression on staging; local browser runtime unavailable in this workspace.
+- [ ] 8.8 Connect verified production email or CRM notification delivery.

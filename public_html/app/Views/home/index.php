@@ -1420,6 +1420,7 @@ $initialWhy = isset($whyItems[0]) && is_array($whyItems[0])
                     method="post"
                     enctype="multipart/form-data"
                     novalidate
+                    aria-label="Varenz request form"
                 >
                     <input
                         type="hidden"
@@ -2721,6 +2722,7 @@ $initialWhy = isset($whyItems[0]) && is_array($whyItems[0])
                 <div
                     class="partner-carousel"
                     id="partnerCarousel"
+                    data-embla="partners"
                     role="region"
                     aria-roledescription="carousel"
                     aria-label="Companies Varenz works with"

@@ -10,6 +10,40 @@
   };
 
   ready(() => {
+    document.documentElement.classList.add('vsl-recovery-ready');
+
+    const formShell = document.querySelector('.cta-form-shell');
+    const requestForm = document.getElementById('vslRequestForm');
+    const requestTypeButtons = Array.from(document.querySelectorAll('#feedbackTypes button'));
+
+    const openRequestForm = (focusForm = false) => {
+      if (!formShell || !requestForm) return;
+      formShell.classList.add('is-form-open');
+      requestForm.removeAttribute('inert');
+      requestForm.setAttribute('aria-hidden', 'false');
+      if (focusForm) {
+        requestForm.querySelector('input:not([type="hidden"]), select, textarea')?.focus({ preventScroll: true });
+      }
+    };
+
+    if (requestForm && formShell) {
+      requestForm.setAttribute('aria-hidden', 'true');
+      requestForm.setAttribute('inert', '');
+
+      requestTypeButtons.forEach((button) => {
+        button.addEventListener('click', () => openRequestForm(false));
+      });
+
+      document.querySelectorAll('[data-vsl-intent]').forEach((control) => {
+        control.addEventListener('click', () => {
+          openRequestForm(false);
+          const intent = control.getAttribute('data-vsl-intent');
+          if (!intent) return;
+          document.querySelector(`#feedbackTypes [data-type="${CSS.escape(intent)}"]`)?.click();
+        });
+      });
+    }
+
     const hub = document.getElementById('vslActionHub');
     const hubToggle = document.getElementById('vslActionHubToggle');
     const hubClose = document.getElementById('vslActionHubClose');
@@ -58,7 +92,10 @@
     const typeButton = intent
       ? document.querySelector(`#feedbackTypes [data-type="${CSS.escape(intent)}"]`)
       : null;
-    typeButton?.click();
+    if (typeButton) {
+      openRequestForm(false);
+      typeButton.click();
+    }
 
     const message = document.querySelector('#vslRequestForm textarea[name="message"]');
     let productSlugs = [];

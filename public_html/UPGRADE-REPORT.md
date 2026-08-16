@@ -25,15 +25,12 @@ The existing PHP MVC site has been upgraded in place into a premium, conversion-
 
 ## Verified
 
-- Desktop and 390 × 844 mobile browser rendering.
-- Mega menu, mobile drawer, action hub, quote/order/feedback routing and hero pause behavior.
-- No application console warnings or errors in the final browser pass.
-- Home and team routes render under PHP 8.3 WebAssembly.
-- Search API returns relevant results for a representative product query.
-- JavaScript syntax checks pass.
-- Generated page has no duplicate IDs, dead hash links or missing local assets.
-- Sitemap parses as valid XML.
-- Visual QA final result: `passed`.
+- Nine public routes render under PHP WebAssembly.
+- Static integrity suite passes 8/8 checks, including catalogue routes, mega-menu destinations, local assets and request-list handoff.
+- `app.js`, `pages.js` and `recovery-2026.js` pass JavaScript syntax validation.
+- Vite production build passes with 680 transformed modules.
+- Search API routing, sitemap, secure request workflow and progressive enhancement remain present.
+- Final desktop/mobile screenshot regression is documented as blocked in `design-qa.md` because the managed browser could not reach the isolated preview server and the workspace has no local browser binary.
 
 ## Deployment
 
@@ -41,7 +38,7 @@ The existing PHP MVC site has been upgraded in place into a premium, conversion-
 2. Extract the ZIP contents into a staging `public_html` directory.
 3. Confirm PHP 8.1+ and Apache rewrite support.
 4. Review `config/app.php` for the live base URL, environment and writable private submission storage path.
-5. Test the homepage, one team profile, search and one real request submission over HTTPS.
+5. Run the browser matrix in `TEST_PLAN.md`, then test search and one real request submission over HTTPS.
 6. After approval, promote the staged contents and submit `sitemap.xml` in Google Search Console.
 
 ## Remaining Live Integration

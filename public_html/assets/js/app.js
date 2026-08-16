@@ -1922,7 +1922,13 @@
                 return;
               }
 
-              if (searchResults) {
+              const fallbackItems = typeof window.VarenzFuzzySearch === 'function'
+                ? window.VarenzFuzzySearch(term)
+                : [];
+
+              if (fallbackItems.length) {
+                renderSearch(fallbackItems);
+              } else if (searchResults) {
                 searchResults
                   .setAttribute(
                     'aria-busy',
@@ -5556,7 +5562,8 @@
 
   if (
     partnerCarousel &&
-    partnerTrack
+    partnerTrack &&
+    !partnerCarousel.hasAttribute('data-embla')
   ) {
     whenNear(
       partnerCarousel,
@@ -6225,6 +6232,7 @@
       if (
         partnerCarousel &&
         partnerTrack &&
+        !partnerCarousel.hasAttribute('data-embla') &&
         !partnerBuilt
       ) {
         readPartnerOriginals();

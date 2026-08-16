@@ -11,7 +11,7 @@ $isCurrent = static fn (string $key): string => $currentPage === $key ? ' aria-c
 
     <nav class="vsl-page-nav" aria-label="Primary navigation">
         <a href="<?= e(url('/')) ?>">Home</a>
-        <button type="button" data-page-mega-trigger aria-expanded="false" aria-controls="vslPageMega">Explore</button>
+        <button type="button" data-page-mega-trigger aria-expanded="false" aria-haspopup="true" aria-controls="vslPageMega">Explore</button>
         <a href="<?= e(url('/products')) ?>"<?= $isCurrent('products') ?>>Products</a>
         <a href="<?= e(url('/contact')) ?>"<?= $isCurrent('contact') ?>>Contact</a>
     </nav>
@@ -39,6 +39,8 @@ $isCurrent = static fn (string $key): string => $currentPage === $key ? ' aria-c
         </div>
     </section>
 </header>
+
+<button class="vsl-page-drawer-scrim" type="button" data-page-menu-scrim hidden aria-label="Close navigation"></button>
 
 <aside class="vsl-page-drawer" id="vslPageDrawer" data-page-drawer hidden aria-label="Mobile navigation">
     <button type="button" data-page-menu-close aria-label="Close navigation">Close</button>

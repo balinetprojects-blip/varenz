@@ -7,6 +7,7 @@
     const menuTrigger = document.querySelector('[data-page-menu-trigger]');
     const drawer = document.querySelector('[data-page-drawer]');
     const drawerClose = document.querySelector('[data-page-menu-close]');
+    const drawerScrim = document.querySelector('[data-page-menu-scrim]');
     let previousFocus = null;
 
     const setMega = (open) => {
@@ -18,7 +19,9 @@
     const setDrawer = (open) => {
         if (!drawer || !menuTrigger) return;
         drawer.hidden = !open;
+        if (drawerScrim) drawerScrim.hidden = !open;
         menuTrigger.setAttribute('aria-expanded', String(open));
+        document.body.classList.toggle('vsl-page-menu-open', open);
 
         if (open) {
             previousFocus = document.activeElement;
@@ -34,6 +37,7 @@
 
     menuTrigger?.addEventListener('click', () => setDrawer(true));
     drawerClose?.addEventListener('click', () => setDrawer(false));
+    drawerScrim?.addEventListener('click', () => setDrawer(false));
     drawer?.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => setDrawer(false)));
 
     document.addEventListener('click', (event) => {

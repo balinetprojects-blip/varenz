@@ -198,3 +198,173 @@ body {
 @media (prefers-reduced-motion:reduce) {
   .faq-plus { animation:none !important; }
 }
+
+/* -------------------------------------------------------------------------
+   2026 release recovery: one stable width and overflow contract
+   ------------------------------------------------------------------------- */
+
+*, *::before, *::after { box-sizing:border-box; }
+
+.site-header,
+.header-stage,
+.header-island,
+.utility-inner { max-width:100%; }
+
+.header-island {
+  transform:none !important;
+  animation:none !important;
+  opacity:1 !important;
+}
+
+@media (min-width:1201px) {
+  .header-stage { padding-inline:clamp(12px,2.2vw,36px) !important; }
+  .header-island {
+    width:min(100%,1600px) !important;
+    margin-inline:auto !important;
+    grid-template-columns:minmax(150px,205px) minmax(0,1fr) auto !important;
+    gap:clamp(10px,1.35vw,22px) !important;
+  }
+  .nav-bubbles { min-width:0 !important; }
+  .nav-bubble { padding-inline:clamp(9px,1vw,13px) !important; }
+  .search-bubble { min-width:92px !important; }
+  .support-bubble { padding-inline:13px !important; }
+}
+
+/* Dedicated-page header: centred without the old translate clipping. */
+.vsl-page-header {
+  box-sizing:border-box;
+  left:auto !important;
+  right:auto;
+  transform:none !important;
+  width:calc(100% - clamp(16px,3vw,48px)) !important;
+  max-width:1540px;
+  margin-inline:auto;
+  top:8px;
+  border-radius:28px;
+}
+
+.vsl-page-brand,
+.vsl-page-nav { min-width:0; }
+.vsl-page-header__actions { min-width:max-content; }
+
+.vsl-page-drawer-scrim {
+  position:fixed;
+  z-index:1450;
+  inset:0;
+  width:100%;
+  height:100%;
+  border:0;
+  background:rgba(5,21,54,.46);
+  backdrop-filter:blur(5px);
+}
+
+.vsl-page-drawer { z-index:1500; }
+body.vsl-page-menu-open { overflow:hidden; }
+
+/* Progressive request centre: choices first, fields only after intent. */
+.vsl-js .cta-form-shell .cta-form { display:none; }
+
+.vsl-js .cta-form-shell.is-form-open .cta-form {
+  display:block;
+  animation:vsl-form-reveal .42s cubic-bezier(.16,1,.3,1) both;
+}
+
+.vsl-js .cta-form-shell:not(.is-form-open)::after {
+  content:"Choose Quotation, Feedback, Suggestion or Support to open the secure request form.";
+  display:block;
+  padding:26px;
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:22px;
+  color:#dceaff;
+  background:rgba(4,22,55,.24);
+  line-height:1.65;
+}
+
+@keyframes vsl-form-reveal {
+  from { opacity:0; transform:translateY(14px); }
+  to { opacity:1; transform:none; }
+}
+
+/* Partner rail is owned by Embla in the enhancement bundle. */
+.partner-carousel[data-embla="partners"] .partner-carousel-viewport {
+  overflow:hidden;
+  cursor:grab;
+  touch-action:pan-y pinch-zoom;
+}
+
+.partner-carousel[data-embla="partners"] .partner-carousel-viewport:active { cursor:grabbing; }
+.partner-carousel[data-embla="partners"] .partner-track { transform:none !important; transition:none !important; }
+.partner-carousel[data-embla="partners"] .partner-card { flex:0 0 clamp(260px,31vw,420px); min-width:0; }
+
+/* FAQ: readable inactive state, stronger active depth, calm invitation pulse. */
+.faq-item {
+  border:1px solid rgba(49,69,154,.10);
+  background:linear-gradient(145deg,#f5f9fd,#e4edf6);
+  box-shadow:-10px -10px 24px rgba(255,255,255,.9),10px 10px 24px rgba(32,70,129,.12);
+}
+
+.faq-item.open,
+.faq-item.is-open {
+  box-shadow:inset -8px -8px 18px rgba(255,255,255,.84),inset 8px 8px 18px rgba(32,70,129,.11);
+}
+
+.faq-head { min-height:68px; }
+.faq-plus { display:grid; place-items:center; flex:0 0 38px; width:38px; height:38px; }
+
+/* Compact support control that cannot dominate or cover the page. */
+.vsl-action-hub { z-index:1200; }
+.vsl-action-hub__panel { width:min(330px,calc(100vw - 24px)); max-height:min(66vh,520px); overflow:auto; }
+.vsl-action-hub__toggle { border-radius:999px; }
+.vsl-action-hub__scrim { z-index:-1; }
+
+/* Full-width brochure-style footer on every route. */
+.vsl-footer,
+.vsl-page-footer,
+.vsl-catalog-footer {
+  width:100% !important;
+  max-width:none !important;
+  margin:0 !important;
+  border-radius:0 !important;
+}
+
+.vsl-page-footer { padding-inline:max(24px,calc((100vw - 1440px)/2)); }
+
+@media (max-width:1100px) {
+  .vsl-page-header {
+    grid-template-columns:minmax(150px,1fr) auto !important;
+    gap:14px;
+    padding-inline:18px;
+  }
+  .vsl-page-nav { display:none !important; }
+  .vsl-page-menu-button { display:inline-flex !important; align-items:center; justify-content:center; }
+}
+
+@media (max-width:640px) {
+  .vsl-page-header { width:calc(100% - 16px) !important; border-radius:22px; padding:9px 10px 9px 14px; }
+  .vsl-page-brand img { width:min(148px,42vw); height:auto; }
+  .vsl-page-header__actions .vsl-page-primary { display:none; }
+  .vsl-page-drawer { width:min(92vw,390px); padding:24px 18px; }
+  .cta-form-shell { padding:16px; }
+  .vsl-js .cta-form-shell:not(.is-form-open)::after { padding:20px; font-size:.88rem; }
+  .partner-carousel[data-embla="partners"] .partner-card { flex-basis:min(82vw,320px); width:auto; }
+  .vsl-action-hub__panel { position:fixed; right:10px; bottom:76px; left:10px; width:auto; max-height:68vh; }
+  .vsl-footer-grid,
+  .vsl-page-footer,
+  .vsl-catalog-footer { grid-template-columns:repeat(2,minmax(0,1fr)) !important; }
+  .vsl-footer-brand,
+  .vsl-page-footer__brand,
+  .vsl-catalog-footer > div:first-child { grid-column:1 / -1 !important; }
+}
+
+@media (max-width:390px) {
+  .vsl-footer-grid,
+  .vsl-page-footer,
+  .vsl-catalog-footer { grid-template-columns:1fr !important; }
+  .vsl-footer-brand,
+  .vsl-page-footer__brand,
+  .vsl-catalog-footer > div:first-child { grid-column:auto !important; }
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .vsl-js .cta-form-shell.is-form-open .cta-form { animation:none; }
+}
